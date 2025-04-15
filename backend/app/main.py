@@ -1,17 +1,33 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import psycopg
 
-app = FastAPI()
+# import psycopg # Removed
+from contextlib import asynccontextmanager
+from .db import init_db
+from .routers import images  # Import router
 
-# Disable CORS. Do not remove this for full-stack development.
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("Initializing Database...")
+    await init_db()
+    print("Database Initialized.")
+    yield
+    print("Closing application.")
+
+
+app = FastAPI(lifespan=lifespan)  # Add lifespan
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+app.include_router(images.router)  # Include the image router
+
 
 @app.get("/healthz")
 async def healthz():

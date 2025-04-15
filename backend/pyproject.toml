@@ -8,8 +8,19 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 fastapi = {extras = ["standard"], version = "^0.115.12"}
-psycopg = {extras = ["binary"], version = "^3.2.6"}
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.40", source = "pypi"}
+aiosqlite = {version = "^0.21.0", source = "pypi"}
+sqlmodel = {version = "^0.0.24", source = "pypi"}
+opencv-python-headless = {version = "^4.11.0.86", source = "pypi"}
+pillow = {version = "^11.2.1", source = "pypi"}
+torch = {version = "^2.6.0", source = "pypi"}
+torchvision = {version = "^0.21.0", source = "pypi"}
+torchaudio = {version = "^2.6.0", source = "pypi"}
+transformers = {extras = ["torch"], version = "^4.51.3", source = "pypi"}
 
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.5"
 
 [build-system]
 requires = ["poetry-core"]
