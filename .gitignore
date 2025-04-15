@@ -1,5 +1,7 @@
 # Database and Data Files
 backend/avatardb.db
+backend/backend/
+
 backend/data/
 
 
